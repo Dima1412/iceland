@@ -1,20 +1,20 @@
 {
   "files": {
-    "main.css": "/iceland/static/css/main.035839c3.chunk.css",
-    "main.js": "/iceland/static/js/main.01d53441.chunk.js",
-    "main.js.map": "/iceland/static/js/main.01d53441.chunk.js.map",
+    "main.css": "/iceland/static/css/main.2b7380ff.chunk.css",
+    "main.js": "/iceland/static/js/main.c564604a.chunk.js",
+    "main.js.map": "/iceland/static/js/main.c564604a.chunk.js.map",
     "runtime-main.js": "/iceland/static/js/runtime-main.96311df5.js",
     "runtime-main.js.map": "/iceland/static/js/runtime-main.96311df5.js.map",
-    "static/js/2.aecc905d.chunk.js": "/iceland/static/js/2.aecc905d.chunk.js",
-    "static/js/2.aecc905d.chunk.js.map": "/iceland/static/js/2.aecc905d.chunk.js.map",
+    "static/js/2.43e27381.chunk.js": "/iceland/static/js/2.43e27381.chunk.js",
+    "static/js/2.43e27381.chunk.js.map": "/iceland/static/js/2.43e27381.chunk.js.map",
     "index.html": "/iceland/index.html",
-    "static/css/main.035839c3.chunk.css.map": "/iceland/static/css/main.035839c3.chunk.css.map",
-    "static/js/2.aecc905d.chunk.js.LICENSE.txt": "/iceland/static/js/2.aecc905d.chunk.js.LICENSE.txt"
+    "static/css/main.2b7380ff.chunk.css.map": "/iceland/static/css/main.2b7380ff.chunk.css.map",
+    "static/js/2.43e27381.chunk.js.LICENSE.txt": "/iceland/static/js/2.43e27381.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.96311df5.js",
-    "static/js/2.aecc905d.chunk.js",
-    "static/css/main.035839c3.chunk.css",
-    "static/js/main.01d53441.chunk.js"
+    "static/js/2.43e27381.chunk.js",
+    "static/css/main.2b7380ff.chunk.css",
+    "static/js/main.c564604a.chunk.js"
   ]
 }
