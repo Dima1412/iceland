@@ -5,6 +5,7 @@
 
 .title {
   position: fixed;
+  letter-spacing: -2px;
   top: 10px;
   left: 0;
   z-index: +1;
@@ -12,8 +13,10 @@
   text-align: center;
   font-size: 36px;
   font-weight: 700;
-  color: rgba(78, 0, 0, 0.658);
-  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.377);
+  color: rgb(83 0 0 / 58%);
+  text-shadow: 0px 0px 20px rgb(0 6 9);
+  -webkit-user-select: none;
+  user-select: none;
 }
 
 .field {
@@ -22,22 +25,12 @@
   grid-gap: 5px;
 }
 
-@media (max-width : 800px) {
-  .field {
-      grid-template-columns: 1fr 1fr;
-  }
-}
-
-@media (max-width : 550px) {
-  .field {
-      grid-template-columns: 1fr;
-  }
-}
-
 .card {
   cursor: pointer;
   transition: all 0.4s ease-in;
   position: relative;
+  user-select: none;
+  animation: scale 5s infinite;
 }
 
 .card:hover {
@@ -80,4 +73,25 @@
   color: white;
   font-size: 14px;
   margin-top: 30px;
+}
+
+@media (max-width : 800px) {
+  .field {
+      grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width : 550px) {
+  .field {
+      grid-template-columns: 1fr;
+  }
+}
+
+@keyframes scale {
+  0%, 100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.01);
+  }
 }

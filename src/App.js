@@ -1,61 +1,49 @@
 import "./App.css";
-import Card from "./Card/Card";
-import { useState } from "react";
-
-
-let timer = 10000
+import { CARDS_STATE } from "./assets/const";
+import Card from "./components/Card/Card";
+import { useState, useEffect, useCallback } from "react";
 
 
 
 function App() {
 
-  const [cards, setCards] = useState([
-    {img: "1.jpg", title: "Дьюпвегюр", text: "Дорога на северо-западе Исландии в регионе Вестфирдир[1]. Дорога предоставляет самый быстрый и безопасный способ добраться от Исафьордюра до остальной Исландии."},
-    {img: "2.jpg", title: "Водопад Диньянди", text: "Диньянди – трапециевидный водопад, верхнее основание огромной «трапеции» — 30 метров, нижнее – 60. На самом деле, Диньянди соединяет семь маленьких водопадов, суммарная высота которых – целых сто метров."},
-    {img: "3.jpg", title: "Пляж Рейнисфьяра", text: "Местные жители еще называют его “черным пляжем”. Примечателен он тем, что песок здесь не привычного цвета, а черный."},
-    {img: "4.jpg", title: "Водопад Скоугафосс", text: "Этот водопад соперничает с Гюльдафосс за звание самого знаменитого водопада Исландии. Воды Скоугафосс падают с высоты 60 метров, а ширина водопада – 25 метров."},
-    {img: "5.jpg", title: "Мыс Стокснес", text: "Мыс, расположенный на юго-востоке острова Исландия. Недалеко от мыса находится фьорд Хорнафьордюр, с расположенным на нём городом Хёбн."},
-    {img: "6.jpg", title: "Мыс Дирхолаэй", text: "Здесь море, разрушая утесы из вулканической лавы 120−метровой высоты, создало невероятные формы. Это место, совершенно незащищенное от ветров, в июле изобилует буревестниками и кайрами, бакланами и гагарками, а также различными видами чаек."},
-    {img: "7.jpg", title: "Водопад Свартифосс", text: "Свартифосс запоминается благодаря огромным базальтовым колоннам, которые высятся по его бокам. Колонны можно изучить вблизи, они похожи на рукотворные, однако это творение матушки-природы."},
-    {img: "8.jpg", title: "Снайфедльснесвегюр", text: "Дорога на западе Исландии в регионе Вестюрланд. Дорога предоставляет единственный способ добраться от Снайфедльснеса до остальной Исландии. Длина Снайфедльснесвегюр составляет почти 230 километров."},
-    {img: "9.jpg", title: "Мыс Дирхолаэй", text: "Является самой южной материковой точкой Исландии. В переводе его название означает “дверь острова”. И, действительно, скалы здесь имеют причудливую форму, одна из них напоминает арку."}
-  ]);
-
-  const [index, setIndex] = useState(10);
-
-  const setOff = () => {
-    setIndex(10)
-  }
+  const [cards, setCards] = useState(CARDS_STATE);
+  const [activeIndex, setActiveIndex] = useState(null);
   
-  const setindex = (i) => {
-    if (i==index) {
-      setOff()
+  useEffect(() => {
+    const interval = setInterval(reverse, 10000)
+    return () => {
+      clearInterval(interval)
     }
-    else {
-      setIndex(i)
-    }
+  }, [])
+
+  const reverse = useCallback(() => {
+    setCards(prev => {
+      const cardsCopy = [...prev]
+      cardsCopy.reverse()
+      return cardsCopy
+    })
+    setActiveIndex(prev => prev === null ? null : 8 - prev)
+  }, [])
+
+  const setActive = (index) => () => {
+    const newIndex = index === activeIndex ? null : index
+    setActiveIndex(newIndex)
   };
 
-  const reverse = () => {
-    const cardsCopy = [...cards]
-    cardsCopy.reverse()
-    setCards(cardsCopy)
-    setindex (8-index)
-  }
-  
-  if (timer) {
-    clearInterval(timer)  
-    timer = setInterval(reverse, 10000)
-  }
-  
+  const renderCard = (card, index) => (
+    <Card
+      data={card}
+      active={activeIndex === index}
+      setActive={setActive(index)}
+    />
+  )
 
   return (
     <div className="container">
-      <div className="title">
-        Исландия
-      </div>
+      <div className="title">Исландия</div>
       <div className="field">
-        {cards.map((item, i) => <Card setindex={() => setindex(i)} key={i} index={index} i={i} item={item}/>)}
+        {cards.map(renderCard)}
       </div>
     </div>
   );
