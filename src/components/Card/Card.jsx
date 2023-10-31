@@ -17,7 +17,6 @@ const Card = ({
 
     return (
         <div
-            key={text}
             draggable
             className="card"
             onDragStart={onDragStart(data, index)}
