@@ -2,12 +2,28 @@ import React from 'react';
 
 
 
-const Card = ({data, active, setActive}) => {
+const Card = ({
+    data,
+    index,
+    active,
+    setActive,
+    onDragStart,
+    onDragEnter,
+}) => {
     
-    const { img, title, text } = data
+    const { img, title, text, dragging } = data
     
+    const draggingStyles = dragging ? {transition: '0.01s', transform: 'translateX(-9999px)'} : null
+
     return (
-        <div className="card">
+        <div
+            key={text}
+            draggable
+            className="card"
+            onDragStart={onDragStart(data, index)}
+            onDragEnter={onDragEnter(data, index)}
+            style={draggingStyles}
+        >
             <img src={img} />
             <div className={`description ${active ? 'active' : ''}`} onClick={setActive}>
                 <div className="description__title">{title}</div>
