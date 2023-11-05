@@ -1,6 +1,16 @@
 import React from 'react';
+import { myType } from '../../assets/const';
 
+interface CardProps {
+    data: myType,
+    index: number,
+    active: boolean,
+    setActive: (param: any) => any,
+    onDragStart: (param1: any, param2: any) => any,
+    onDragEnter: (param1: any, param2: any) => any,
+}
 
+type CSSProperty = { transition: string, transform: string} | undefined
 
 const Card = ({
     data,
@@ -9,11 +19,11 @@ const Card = ({
     setActive,
     onDragStart,
     onDragEnter,
-}) => {
+}: CardProps) => {
     
     const { img, title, text, dragging } = data
     
-    const draggingStyles = dragging ? {transition: '0.01s', transform: 'translateX(-9999px)'} : null
+    const draggingStyles: CSSProperty = dragging ? {transition: '0.01s', transform: 'translateX(-9999px)'} : undefined
 
     return (
         <div
