@@ -1,5 +1,5 @@
 import "./App.css";
-import { CARDS_STATE } from "./assets/const";
+import { CARDS_STATE, myType } from "./assets/const";
 import Card from "./components/Card/Card";
 import { useState, useEffect, useCallback, useRef } from "react";
 
@@ -7,15 +7,15 @@ import { useState, useEffect, useCallback, useRef } from "react";
 
 function App() {
 
-  const [cards, setCards] = useState(CARDS_STATE);
-  const [activeIndex, setActiveIndex] = useState(null);
+  const [cards, setCards] = useState<myType[]>(CARDS_STATE);
+  const [activeIndex, setActiveIndex] = useState<number | null>(null);
   
-  const intervalRef = useRef(null)
+  const intervalRef = useRef<NodeJS.Timeout | null>(null)
 
   useEffect(() => {
     intervalRef.current = setInterval(reverse, 10000)
     return () => {
-      clearInterval(intervalRef.current)
+      intervalRef.current && clearInterval(intervalRef.current)
     }
   }, [])
 
@@ -28,43 +28,45 @@ function App() {
     setActiveIndex(prev => prev === null ? null : 8 - prev)
   }, [])
 
-  const setActive = (index) => () => {
+  const setActive = (index: number) => () => {
     const newIndex = index === activeIndex ? null : index
     setActiveIndex(newIndex)
   };
 
-  const renderCard = (card, index) => (
-    <Card
-      key={card.text}
-      data={card}
-      index={index}
-      active={activeIndex === index}
-      setActive={setActive(index)}
-      onDragStart={onDragStart}
-      onDragEnter={onDragEnter}
-    />
-  )
+  const renderCard = (card: myType, index: number) => {
+    return (
+      <Card
+        key={card.text}
+        data={card}
+        index={index}
+        active={activeIndex === index}
+        setActive={setActive(index)}
+        onDragStart={onDragStart}
+        onDragEnter={onDragEnter}
+      />
+    )
+  }
 
-  const onDragStart = (card, index) => () => {
+  const onDragStart = (card: myType, index: number) => () => {
     const newCardsList = [...cards]
     newCardsList.splice(index, 1, {...cards[index], dragging: true})
     setActiveIndex(null)
     setCards(newCardsList)
-    clearInterval(intervalRef.current)
+    intervalRef.current && clearInterval(intervalRef.current)
   }
   
-  const onDragEnter = (card, index) => () => {
+  const onDragEnter = (card: myType, index: number) => () => {
     // if (card.dragging) return;
     const draggingCard = cards.find(({dragging}) => !!dragging)
     const newCardsList = cards.filter(({dragging}) => !dragging)
     const hoverIndex = cards.findIndex(({text}) => text === card.text)
-    newCardsList.splice(hoverIndex, 0, draggingCard)
+    draggingCard && newCardsList.splice(hoverIndex, 0, draggingCard)
     setCards(newCardsList)
 
   }
 
-  const onDrop = (e) => {
-    const newCardsList = cards.map(({dragging, ...restCard}) => ({...restCard}))
+  const onDrop = () => {
+    const newCardsList = cards.map(card => ({...card, dragging: false}))
     setCards(newCardsList)
     intervalRef.current = setInterval(reverse, 10000)
   }
